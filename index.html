@@ -6,6 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>Venmo Lander</title>
 
+<!-- TikTok Pixel Code Start -->
+<script>
+!function (w, d, t) {
+  w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(
+var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var r="https://analytics.tiktok.com/i18n/pixel/events.js",o=n&&n.partner;ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=r,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};n=document.createElement("script")
+;n.type="text/javascript",n.async=!0,n.src=r+"?sdkid="+e+"&lib="+t;e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(n,e)};
+
+
+  ttq.load('D4PGQERC77U6HORAR5P0');
+  ttq.page();
+}(window, document, 'ttq');
+</script>
+<!-- TikTok Pixel Code End -->
+
     <style>
         * {
             margin: 0;
@@ -177,6 +191,7 @@
             cursor: pointer;
             box-shadow: 0 8px 12px rgba(37, 99, 235, 0.45);
             text-decoration: none;
+            transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
         }
 
         .claim-button:hover {
@@ -315,8 +330,8 @@
             </div>
         </div>
 
-        <!-- Sign Up button FIRST -->
-        <a href="https://glitchy.go2cloud.org/aff_c?offer_id=2862&aff_id=2609" class="claim-button">
+        <!-- Sign Up button with tracking -->
+        <a href="https://glitchy.go2cloud.org/aff_c?offer_id=2862&aff_id=2609" class="claim-button" onclick="trackSignUpClick(event)">
             Sign Up
         </a>
 
@@ -350,7 +365,37 @@
         function goToStep2() {
             document.getElementById("step1").classList.add("hidden");
             document.getElementById("step2").classList.remove("hidden");
+            
+            // Track ViewContent when user reaches step 2
+            if (typeof ttq !== 'undefined') {
+                ttq.track('ViewContent', {
+                    content_name: 'Venmo Rewards Page',
+                    content_category: 'Landing Page'
+                });
+            }
+            
             startAnimations();
+        }
+
+        function trackSignUpClick(event) {
+            // Track the Sign Up button click
+            if (typeof ttq !== 'undefined') {
+                ttq.track('ClickButton', {
+                    content_name: 'Sign Up Button',
+                    content_category: 'CTA',
+                    value: 1000
+                });
+                
+                // Also track as InitiateCheckout
+                ttq.track('InitiateCheckout', {
+                    content_name: 'Venmo Sign Up',
+                    value: 1000,
+                    currency: 'USD'
+                });
+            }
+            
+            // Let the link proceed normally
+            return true;
         }
 
         function animateValue(element, start, end, duration, decimals) {
