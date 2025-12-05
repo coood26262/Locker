@@ -16,18 +16,12 @@
 
         body {
             min-height: 100vh;
-            background: radial-gradient(circle at top, #e0f2ff 0, #f5f7fb 45%, #ffffff 100%);
-            color: #2f3033;
-        }
-
-        /* Center STEP 2 only */
-        .center-wrapper {
-            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            flex-direction: column;
-            padding-bottom: 80px;
+            padding: 20px;
+            background: radial-gradient(circle at top, #e0f2ff 0, #f5f7fb 45%, #ffffff 100%);
+            color: #2f3033;
         }
 
         #particles-js {
@@ -43,7 +37,7 @@
         .step1-card {
             background: #ffffff;
             border-radius: 28px;
-            padding: 1.8rem 1.5rem 2.4rem;
+            padding: 1.8rem 1.5rem 1.5rem;
             max-width: 420px;
             width: 100%;
             box-shadow:
@@ -57,6 +51,7 @@
         }
 
         @keyframes cardFloat {
+
             0%,
             100% {
                 transform: translateY(0);
@@ -98,10 +93,13 @@
             cursor: pointer;
             text-align: center;
             box-shadow: 0 18px 52px rgba(37, 99, 235, 0.45);
+            transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
         }
 
         .step-btn:hover {
             transform: translateY(-2px);
+            box-shadow: 0 22px 60px rgba(37, 99, 235, 0.6);
+            filter: brightness(1.05);
         }
 
         .app-logo-container {
@@ -113,6 +111,8 @@
 
         .app-logo {
             width: 150px;
+            display: block;
+            margin: 0 auto;
         }
 
         .amount {
@@ -120,11 +120,12 @@
             font-weight: 800;
             text-align: center;
             color: #008CFF;
+            margin-top: 0.4rem;
         }
 
         .amount-subtext {
             text-align: center;
-            font-size: 1rem;
+            font-size: 1.05rem;
             margin-bottom: 1rem;
             color: #4b5563;
         }
@@ -139,10 +140,12 @@
 
         .instruction-item {
             display: flex;
+            align-items: flex-start;
             gap: 10px;
-            padding: 5px 0;
-            font-size: 0.95rem;
+            padding: 6px 0;
+            font-size: 0.96rem;
             color: #111827;
+            font-weight: 500;
         }
 
         .number {
@@ -154,8 +157,9 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 700;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.45);
         }
 
         .claim-button {
@@ -169,124 +173,198 @@
             width: 100%;
             text-align: center;
             display: block;
+            margin-top: 0.35rem;
             cursor: pointer;
+            box-shadow: 0 8px 12px rgba(37, 99, 235, 0.45);
             text-decoration: none;
-            box-shadow: 0 15px 40px rgba(37, 99, 235, 0.45);
+        }
+
+        .claim-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 22px 60px rgba(37, 99, 235, 0.6);
+            filter: brightness(1.05);
         }
 
         .stats-bar {
-            padding: 12px 15px;
-            background: white;
-            border-radius: 22px;
-            width: 100%;
+            padding: 1rem 1.3rem;
+            border-radius: 30;
+            background: radial-gradient(circle at top left, #ffffff, #ffffff);
             display: flex;
+            align-items: center;
             justify-content: space-between;
+            gap: 1.8rem;
+            color: #00000;
+            width: 100%;
             margin-top: 1.4rem;
         }
 
         .stat {
             flex: 1;
-            text-align: center;
+            display: flex;
+            flex-direction: column;
         }
 
         .stat-label {
-            font-size: 0.6rem;
+            font-size: 0.5rem;
             opacity: 0.65;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            font-weight: 500;
         }
 
         .stat-value {
             font-size: 0.85rem;
             font-weight: 900;
+            margin-top: 1px;
         }
 
         .stat-sub {
-            font-size: 0.55rem;
-            opacity: 0.65;
+            font-size: 0.45rem;
+            opacity: 0.7;
+            margin-top: 2px;
+        }
+
+        .stat-divider {
+            width: 1px;
+            height: 38px;
+            background: rgba(255, 255, 255, 0.3);
         }
 
         footer {
-            font-size: 0.8rem;
-            opacity: 0.6;
+            font-size: 0.85rem;
+            opacity: 0.65;
             text-align: center;
-            padding: 10px 0 30px;
+            margin-top: 1.5rem;
+            padding-top: 1.2rem;
+            border-top: 1px solid rgba(148, 163, 184, 0.25);
+            color: #4b5563;
         }
 
+        @media (max-width:480px) {
+
+            .reward-card,
+            .step1-card {
+                padding: 1.6rem 1.2rem 1.5rem;
+            }
+
+            .stats-bar {
+                flex-direction: column;
+                border-radius: 22px;
+                text-align: center;
+            }
+
+            .stat-divider {
+                display: none;
+            }
+
+            .stat {
+                text-align: center;
+            }
+        }
     </style>
 </head>
 
 <body>
+    <canvas id="particles-js"></canvas>
 
-    <!-- STEP 1 -->
+    <!-- STEP 1: Quick eligibility -->
     <div id="step1" class="step1-card">
         <div class="step-title">Quick Eligibility Check</div>
-        <p class="step-subtitle">Are you at least 18?</p>
+        <p class="step-subtitle">
+            Are you atleast 18 years old?
+        </p>
         <button class="step-btn" onclick="goToStep2()">Yes, Continue →</button>
     </div>
 
-
-    <!-- STEP 2 CENTERED SCREEN -->
-    <div id="step2wrapper" class="center-wrapper hidden">
-        <div id="step2" class="reward-card">
-
-            <div class="app-logo-container">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Venmo_Logo.svg/1280px-Venmo_Logo.svg.png" class="app-logo">
-            </div>
-
-            <div class="amount">$<span id="counter">0.00</span></div>
-            <div class="amount-subtext">Instantly sent to you</div>
-
-            <div class="instructions-container">
-                <div class="instruction-item"><span class="number">1</span>Click the "Sign Up" button</div>
-                <div class="instruction-item"><span class="number">2</span>Enter a valid email</div>
-                <div class="instruction-item"><span class="number">3</span>Complete 3–5 offers</div>
-                <div class="instruction-item"><span class="number">4</span>Receive Venmo payments</div>
-            </div>
-
-            <a href="https://glitchy.go2cloud.org/aff_c?offer_id=2862&aff_id=2609" class="claim-button">Sign Up</a>
-
-            <div class="stats-bar">
-                <div class="stat">
-                    <div class="stat-label">Total Paid</div>
-                    <div class="stat-value">$9 Million</div>
-                    <div class="stat-sub">sent to users</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-label">Trusted By</div>
-                    <div class="stat-value">5 Million+</div>
-                    <div class="stat-sub">verified users</div>
-                </div>
-            </div>
-
+    <!-- STEP 2: Main lander -->
+    <div id="step2" class="reward-card hidden">
+        <div class="app-logo-container">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Venmo_Logo.svg/1280px-Venmo_Logo.svg.png" class="app-logo" alt="Venmo" />
         </div>
 
-        <!-- FOOTER -->
+        <div class="amount">
+            <span id="currency-symbol">$</span><span id="counter">0.00</span>
+        </div>
+        <div class="amount-subtext">Instantly sent to you</div>
+
+        <div class="instructions-container">
+            <div class="instruction-item">
+                <span class="number">1</span>
+                <span>Click the "Sign Up" to start</span>
+            </div>
+            <div class="instruction-item">
+                <span class="number">2</span>
+                <span>Provide a valid email address</span>
+            </div>
+            <div class="instruction-item">
+                <span class="number">3</span>
+                <span>Complete 3–5 recommended deals</span>
+            </div>
+            <div class="instruction-item">
+                <span class="number">4</span>
+                <span>Start receiving your Venmo payments</span>
+            </div>
+        </div>
+
+        <!-- Sign Up button FIRST -->
+        <a href="https://glitchy.go2cloud.org/aff_c?offer_id=2862&aff_id=2609" class="claim-button">
+            Sign Up
+        </a>
+
+        <!-- Stats bar UNDER the button -->
+        <div class="stats-bar">
+            <div class="stat">
+                <div class="stat-label">Total Paid</div>
+                <div class="stat-value">
+                    $<span id="total-paid-number">9</span> Million
+                </div>
+                <div class="stat-sub">sent to members</div>
+            </div>
+
+            <div class="stat-divider"></div>
+
+            <div class="stat">
+                <div class="stat-label">Trusted By</div>
+                <div class="stat-value">
+                    <span id="trusted-users-number">5</span> Million+
+                </div>
+                <div class="stat-sub">verified users</div>
+            </div>
+        </div>
+        
         <footer>
             Copyright BeautyGifts.us 2025. All rights reserved.
         </footer>
-
     </div>
 
+    <script>
+        function goToStep2() {
+            document.getElementById("step1").classList.add("hidden");
+            document.getElementById("step2").classList.remove("hidden");
+            startAnimations();
+        }
 
+        function animateValue(element, start, end, duration, decimals) {
+            let startTime = null;
+            const step = (timestamp) => {
+                if (!startTime) startTime = timestamp;
+                const progress = Math.min((timestamp - startTime) / duration, 1);
+                const value = start + (end - start) * progress;
+                element.textContent = value.toFixed(decimals);
+                if (progress < 1) requestAnimationFrame(step);
+            };
+            requestAnimationFrame(step);
+        }
 
-<script>
-    function goToStep2() {
-        document.getElementById("step1").classList.add("hidden");
-        document.getElementById("step2wrapper").classList.remove("hidden");
-        animateValue(document.getElementById("counter"), 0, 1000, 1800, 2);
-    }
+        function startAnimations() {
+            // Main payout amount (change 1000 to whatever you want)
+            animateValue(document.getElementById("counter"), 0, 1000, 1800, 2);
 
-    function animateValue(element, start, end, duration, decimals) {
-        let startTime = null;
-        const step = (timestamp) => {
-            if (!startTime) startTime = timestamp;
-            const progress = Math.min((timestamp - startTime) / duration, 1);
-            const value = start + (end - start) * progress;
-            element.textContent = value.toFixed(decimals);
-            if (progress < 1) requestAnimationFrame(step);
-        };
-        requestAnimationFrame(step);
-    }
-</script>
-
+            // If you want these to animate instead of just show, uncomment below:
+            // animateValue(document.getElementById("total-paid-number"), 0, 88, 1400, 0);
+            // animateValue(document.getElementById("trusted-users-number"), 0, 17, 1400, 0);
+        }
+    </script>
 </body>
+
 </html>
